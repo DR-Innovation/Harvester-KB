@@ -1,7 +1,7 @@
 Harvester-KB
 =============
 
-This harvester connects to the OAI-PMH endpoint of the Royal Museum.
+This harvester connects to the OAI-PMH endpoint of the Royal Library.
 
 ##Instructions
 To be updated, the first time anyone hints this might be desired, I will take the time to write a good guide.
