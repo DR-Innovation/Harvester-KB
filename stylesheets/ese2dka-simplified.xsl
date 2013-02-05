@@ -10,9 +10,14 @@
 	       
   <xsl:template match="/">
     <xsl:apply-templates select="/oa:OAI-PMH/oa:ListRecords"/>
+    <xsl:apply-templates select="/oa:OAI-PMH/oa:GetRecord"/>
   </xsl:template>
 
   <xsl:template match="oa:ListRecords">
+    <xsl:apply-templates select="oa:record[oa:metadata/node()]"/>
+  </xsl:template>
+
+  <xsl:template match="oa:GetRecord">
     <xsl:apply-templates select="oa:record[oa:metadata/node()]"/>
   </xsl:template>
 
