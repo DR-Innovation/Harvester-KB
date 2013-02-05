@@ -39,7 +39,17 @@
       <Abstract />
       <Description>
 	<div xmlns="http://www.w3.org/1999/xhtml">
-	  <div style="vertical-align:top;width:25%;float:left;">
+		<xsl:for-each select="dc:description">
+		  <p><xsl:value-of select="."/></p>
+		</xsl:for-each>
+	    <p><strong><a target="_blank">
+		  <xsl:attribute name="href">
+		    <xsl:value-of select="concat(substring-before(ese:isShownAt,'/object'),'/da/')"/>
+		  </xsl:attribute>
+			Mere fra samme udgivelse</a>
+	      </strong>
+	    </p>
+	  <!-- div style="vertical-align:top;width:25%;float:left;">
 	    <h4>
 	      <xsl:for-each select="dc:title">
 		<xsl:value-of select="."/>
@@ -107,7 +117,7 @@
 
 	  </div>
 
-	  <!-- div style="vertical-align:top;width:75%;float:left;">
+	  <div style="vertical-align:top;width:75%;float:left;">
 	    <xsl:element name="img">
 	      <xsl:attribute name="style">width:100%;</xsl:attribute>
 	      <xsl:attribute name="alt">
@@ -120,7 +130,6 @@
 	  </div-->
 
 	</div>
-
       </Description>
       <Organization>
 	<xsl:value-of select="ese:dataProvider"/>
