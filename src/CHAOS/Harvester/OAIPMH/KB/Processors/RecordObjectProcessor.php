@@ -8,12 +8,15 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 	protected function generateQuery($externalObject) {
 		assert($externalObject->header->identifier);
 		$identifier = strval($externalObject->header->identifier);
-		/*
-		$legacyQuery = sprintf('(DKA-Organization:"%s" AND ObjectTypeID:%u AND m00000000-0000-0000-0000-000063c30000_da_all:"%s")', 'DR', $this->_objectTypeId, strval($externalObject->AssetId));
-		$newQuery = sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, strval($externalObject->AssetId));
+		var_dump($identifier);
+		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
+			throw new \Exception("Cannot extract a nummeric ID from the identifier.");
+		} else {
+			$nummeric_id = intval($nummeric_id_matches[1]);
+		}
+		$legacyQuery = sprintf('(DKA-Organization:"%s" AND ObjectTypeID:%u AND m00000000-0000-0000-0000-000063c30000_da_all:"%s")', 'Det Kongelige Bibliotek', $this->_objectTypeId, "{$nummeric_id}");
+		$newQuery = sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
 		return sprintf("(%s OR %s)", $legacyQuery, $newQuery);
-		*/
-		return sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
 	}
 	
 	public function process($externalObject, $shadow = null) {
@@ -30,16 +33,13 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$externalObject->registerXPathNamespace('dc', 'http://purl.org/dc/elements/1.1/');
 		$externalObject->registerXPathNamespace('dcterms', 'http://purl.org/dc/terms/');
 		$externalObject->registerXPathNamespace('europeana', 'http://www.europeana.eu/schemas/ese/');
+		$externalObject->registerXPathNamespace('oa', 'http://www.openarchives.org/OAI/2.0/');
+		$externalObject->registerXPathNamespace('ese', 'http://www.europeana.eu/schemas/ese/');
 		
 		$record = $externalObject->metadata->record;
 		assert($record instanceof \SimpleXMLElement);
 		
-		$title = $record->xpath('(dc:title[@lang="da"] | dc:title)[1]');
-		if(count($title) == 0) {
-			$title = "Untitled";
-		} else {
-			$title = strval($title[0]);
-		}
+		$title = self::extractTitle($record);
 		
 		$this->_harvester->info("Processing '%s' #%s", $title, $identifier);
 		
@@ -55,5 +55,21 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$shadow->commit($this->_harvester);
 		
 		return $shadow;
+	}
+	
+	public static function extractTitle($record) {
+		$title = $record->xpath('(dc:title[@lang="da"] | dc:title)[1]');
+		if(count($title) == 0) {
+			$title = "";
+		} else {
+			$title = strval($title[0]);
+		}
+		$title = str_replace("\n", "", $title);
+		$title = str_replace("\t", "", $title);
+		$title = trim($title);
+		if(strlen(trim($title)) == 0) {
+			$title = "[Untitled external object]";
+		}
+		return $title;
 	}
 }

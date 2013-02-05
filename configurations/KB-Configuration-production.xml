@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chc:ChaosHarvesterConfiguration xmlns:chc="http://www.example.org/ChaosHarvesterConfiguration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/ChaosHarvesterConfiguration ../../Base/schemas/ChaosHarvesterConfiguration.xsd ">
+  <chc:Organisation>Det Kongelige Bibliotek (KB)</chc:Organisation>
+  <chc:Project>Any project on their OAI-PMH endpoint.</chc:Project>
+  <chc:Description>
+  	This harvester is a general harvester, used to harvest any record published on the KB PMH endpoint: http://oai.kb.dk/oai/provider
+  	The KB contact is Sigfrid Lundberg (slu@kb.dk).
+  </chc:Description>
+  <chc:BasePath fromEnvironment="BASEPATH" />
+  <chc:IncludePaths>
+    <chc:path>Base/src</chc:path>
+    <chc:path>chaos-client/src</chc:path>
+    <chc:path>Timed-PHP/src</chc:path>
+    <chc:path>OAI-PMH/src</chc:path>
+    <chc:path>OAI-PMH-PHP-Client/src</chc:path>
+    <chc:path>KB/src</chc:path>
+  </chc:IncludePaths>
+  <chc:ChaosConfiguration>
+	<chc:URL fromEnvironment="CHAOS_URL" />
+	<chc:Email fromEnvironment="CHAOS_EMAIL" />
+	<chc:Password fromEnvironment="CHAOS_PASSWORD" />
+  </chc:ChaosConfiguration>
+  <chc:ExternalClient className="LoadableOAIPMHClient" namespace="CHAOS\Harvester\OAIPMH" name="oaipmh">
+  	<chc:Parameter name="baseURL">http://oai.kb.dk/oai/provider</chc:Parameter>
+  </chc:ExternalClient>
+  <chc:Modes>
+  	<chc:Mode className="SetSpecMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="set-spec">
+  		<chc:Parameter name="metadataPrefix">ese</chc:Parameter>
+  	</chc:Mode>
+  	<chc:Mode className="SingleByIdentifierMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="single-reference">
+  		<chc:Parameter name="metadataPrefix">ese</chc:Parameter>
+  	</chc:Mode>
+  </chc:Modes>
+  <chc:Processors>
+    <chc:ObjectProcessor className="RecordObjectProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors" name="record">
+      <chc:Filters>
+      	<chc:Filter className="RecordDeletedFilter" name="record-deleted" namespace="CHAOS\Harvester\OAIPMH\Filters"/>
+      </chc:Filters>
+      <chc:FolderId>251</chc:FolderId>
+      <chc:ObjectTypeId>36</chc:ObjectTypeId>
+      <chc:PublishSettings>
+      	<chc:PublishAccesspoint>30000000-0000-0000-0000-000000000000</chc:PublishAccesspoint>
+      	<chc:UnpublishAccesspoint>30000000-0000-0000-0000-000000000000</chc:UnpublishAccesspoint>
+      </chc:PublishSettings>
+    </chc:ObjectProcessor>
+    <chc:MetadataProcessor name="record_metadata_dka2" className="XSLTMetadataProcessor" namespace="CHAOS\Harvester\Processors">
+		<chc:Parameter name="stylesheet">KB/stylesheets/ese2dka-simplified.xsl</chc:Parameter>
+		<chc:validate>true</chc:validate>
+		<chc:schemaGUID>
+			5906a41b-feae-48db-bfb7-714b3e105396
+		</chc:schemaGUID>
+		<chc:schemaLocation>Base/schemas/DKA2.xsd</chc:schemaLocation>
+    </chc:MetadataProcessor>
+    <chc:FileProcessor name="photo_file" className="PhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
+    	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
+    	<chc:FormatId>3</chc:FormatId>
+    	<chc:Destination name="default">
+    		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
+    		<chc:id>26</chc:id>
+    	</chc:Destination>
+    </chc:FileProcessor>
+    <chc:FileProcessor name="thumb_photo_file" className="ThumbPhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
+    	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
+    	<chc:FormatId>14</chc:FormatId>
+    	<chc:Destination name="default">
+    		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
+    		<chc:id>26</chc:id>
+    	</chc:Destination>
+    </chc:FileProcessor>
+  </chc:Processors>
+</chc:ChaosHarvesterConfiguration>
