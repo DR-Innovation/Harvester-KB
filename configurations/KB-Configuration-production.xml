@@ -39,8 +39,8 @@
       <chc:FolderId>251</chc:FolderId>
       <chc:ObjectTypeId>36</chc:ObjectTypeId>
       <chc:PublishSettings>
-      	<chc:PublishAccesspoint>30000000-0000-0000-0000-000000000000</chc:PublishAccesspoint>
-      	<chc:UnpublishAccesspoint>30000000-0000-0000-0000-000000000000</chc:UnpublishAccesspoint>
+      	<chc:PublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:PublishAccesspoint>
+      	<chc:UnpublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:UnpublishAccesspoint>
       </chc:PublishSettings>
     </chc:ObjectProcessor>
     <chc:MetadataProcessor name="record_metadata_dka2" className="XSLTMetadataProcessor" namespace="CHAOS\Harvester\Processors">
@@ -53,18 +53,18 @@
     </chc:MetadataProcessor>
     <chc:FileProcessor name="photo_file" className="PhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
     	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
-    	<chc:FormatId>3</chc:FormatId>
+    	<chc:FormatId>42</chc:FormatId>
     	<chc:Destination name="default">
     		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
-    		<chc:id>26</chc:id>
+    		<chc:id>84</chc:id>
     	</chc:Destination>
     </chc:FileProcessor>
     <chc:FileProcessor name="thumb_photo_file" className="ThumbPhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
     	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
-    	<chc:FormatId>14</chc:FormatId>
+    	<chc:FormatId>10</chc:FormatId>
     	<chc:Destination name="default">
     		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
-    		<chc:id>26</chc:id>
+    		<chc:id>84</chc:id>
     	</chc:Destination>
     </chc:FileProcessor>
   </chc:Processors>
