@@ -36,7 +36,7 @@
       <chc:Filters>
       	<chc:Filter className="RecordDeletedFilter" name="record-deleted" namespace="CHAOS\Harvester\OAIPMH\Filters"/>
       </chc:Filters>
-      <chc:FolderId>251</chc:FolderId>
+      <chc:FolderId>442</chc:FolderId>
       <chc:ObjectTypeId>36</chc:ObjectTypeId>
       <chc:PublishSettings>
       	<chc:PublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:PublishAccesspoint>
