@@ -8,7 +8,6 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 	protected function generateQuery($externalObject) {
 		assert($externalObject->header->identifier);
 		$identifier = strval($externalObject->header->identifier);
-		var_dump($identifier);
 		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
 			throw new \Exception("Cannot extract a nummeric ID from the identifier.");
 		} else {
