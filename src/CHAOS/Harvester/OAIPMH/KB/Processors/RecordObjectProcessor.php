@@ -18,7 +18,7 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		return sprintf("(%s OR %s)", $legacyQuery, $newQuery);
 	}
 	
-	public function process($externalObject, $shadow = null) {
+	public function process($externalObject, &$shadow = null) {
 		$this->_harvester->debug(__CLASS__." is processing.");
 		
 		/* @var $externalObject \SimpleXMLElement */
@@ -47,9 +47,9 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$shadow->extras["identifier"] = strval($identifier);
 		
 		$shadow->query = $this->generateQuery($externalObject);
-		$shadow = $this->_harvester->process('record_metadata_dka2', $externalObject, $shadow);
-		$shadow = $this->_harvester->process('photo_file', $externalObject, $shadow);
-		$shadow = $this->_harvester->process('thumb_photo_file', $externalObject, $shadow);
+		$this->_harvester->process('record_metadata_dka2', $externalObject, $shadow);
+		$this->_harvester->process('photo_file', $externalObject, $shadow);
+		$this->_harvester->process('thumb_photo_file', $externalObject, $shadow);
 		
 		$shadow->commit($this->_harvester);
 		

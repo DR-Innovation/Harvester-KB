@@ -5,7 +5,7 @@ use CHAOS\Harvester\Shadows\SkippedObjectShadow;
 
 class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	
-	public function process($externalObject, $shadow = null) {
+	public function process($externalObject, &$shadow = null) {
 		$this->_harvester->debug(__CLASS__." is processing.");
 		
 		$record = $externalObject->metadata->record;
