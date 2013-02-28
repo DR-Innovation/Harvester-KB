@@ -3,6 +3,15 @@ namespace CHAOS\Harvester\OAIPMH\KB\Processors;
 use CHAOS\Harvester\Shadows\ObjectShadow;
 use CHAOS\Harvester\Shadows\SkippedObjectShadow;
 
+function str_ends_with($haystack, $needle)
+{
+	$length = strlen($needle);
+	if ($length == 0) {
+		return true;
+	}
+	return (substr($haystack, -$length) === $needle);
+}
+
 class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	
 	public function process($externalObject, &$shadow = null) {
@@ -14,6 +23,10 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 		
 		$photoURLs = $record->xpath('europeana:object');
 		foreach($photoURLs as $photoURL) {
+			if(!str_ends_with(strtolower($photoURL), '.jpg')) {
+				$this->_harvester->info("An europeana:object element (%s) was just skipped, because it didn't have the .jpg suffix.", $photoURL);
+				continue;
+			}
 			$fileShadow = $this->createFileShadowFromURL($photoURL);
 			if($fileShadow) {
 				$shadow->fileShadows[] = $fileShadow;
