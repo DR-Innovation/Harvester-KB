@@ -44,7 +44,7 @@
       </chc:PublishSettings>
     </chc:ObjectProcessor>
     <chc:MetadataProcessor name="record_metadata_dka2" className="XSLTMetadataProcessor" namespace="CHAOS\Harvester\Processors">
-		<chc:Parameter name="stylesheet">KB/stylesheets/ese2dka-simplified.xsl</chc:Parameter>
+		<chc:Parameter name="stylesheet">../stylesheets/ese2dka-simplified.xsl</chc:Parameter>
 		<chc:validate>true</chc:validate>
 		<chc:schemaGUID>
 			5906a41b-feae-48db-bfb7-714b3e105396
