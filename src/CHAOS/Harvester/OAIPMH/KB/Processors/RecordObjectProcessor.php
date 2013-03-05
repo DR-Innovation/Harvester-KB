@@ -8,14 +8,18 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 	protected function generateQuery($externalObject) {
 		assert($externalObject->header->identifier);
 		$identifier = strval($externalObject->header->identifier);
+		$newQuery = sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
+		
 		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
-			throw new \Exception("Cannot extract a nummeric ID from the identifier.");
+			// But this might not be a problem.
+			$this->_harvester->info("Cannot extract a nummeric ID from the identifier.");
+			return $newQuery;
+			//throw new \Exception("Cannot extract a nummeric ID from the identifier.");
 		} else {
 			$nummeric_id = intval($nummeric_id_matches[1]);
+			$legacyQuery = sprintf('(DKA-Organization:"%s" AND ObjectTypeID:%u AND m00000000-0000-0000-0000-000063c30000_da_all:"%s")', 'Det Kongelige Bibliotek', $this->_objectTypeId, "{$nummeric_id}");
+			return sprintf("(%s OR %s)", $legacyQuery, $newQuery);
 		}
-		$legacyQuery = sprintf('(DKA-Organization:"%s" AND ObjectTypeID:%u AND m00000000-0000-0000-0000-000063c30000_da_all:"%s")', 'Det Kongelige Bibliotek', $this->_objectTypeId, "{$nummeric_id}");
-		$newQuery = sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
-		return sprintf("(%s OR %s)", $legacyQuery, $newQuery);
 	}
 	
 	public function process($externalObject, &$shadow = null) {

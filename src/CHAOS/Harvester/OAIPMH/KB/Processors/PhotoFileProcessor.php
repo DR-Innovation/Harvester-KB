@@ -24,8 +24,8 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 		$photoURLs = $record->xpath('europeana:object');
 		foreach($photoURLs as $photoURL) {
 			if(!str_ends_with(strtolower($photoURL), '.jpg')) {
-				$this->_harvester->info("An europeana:object element (%s) was just skipped, because it didn't have the .jpg suffix.", $photoURL);
-				continue;
+				$this->_harvester->info("An europeana:object element (%s) didn't have the .jpg suffix.", $photoURL);
+				//continue; // But this might be okay?
 			}
 			$fileShadow = $this->createFileShadowFromURL($photoURL);
 			if($fileShadow) {
@@ -38,12 +38,22 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	}
 	
 	protected function concludeFileExistance($response) {
+		if(preg_match('/Content-Type: ([^;.]*).*/', $response, $contentType)) {
+			$contentType = $contentType[1];
+			var_dump($contentType);
+			return $contentType == "image/jpeg";
+		} else {
+			return false;
+		}
+		/*
+		// TODO: Consider checking the content type.
 		if(preg_match('/Content-Length: (.*)?/', $response, $contentLength)) {
 			$contentLength = intval($contentLength[1]);
 			return $contentLength > 1000;
 		} else {
 			return false;
 		}
+		*/
 	}
 	
 	protected function extractURLPathinfo($photoURL, $size = null) {
