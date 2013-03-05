@@ -39,7 +39,7 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	protected function concludeFileExistance($response) {
 		if(preg_match('/Content-Type: ([^;.]*).*/', $response, $contentType)) {
 			$contentType = $contentType[1];
-			var_dump($contentType);
+			//var_dump($contentType);
 			return $contentType == "image/jpeg";
 		} else {
 			return false;
