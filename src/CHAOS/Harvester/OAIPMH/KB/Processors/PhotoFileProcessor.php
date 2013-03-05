@@ -1,7 +1,6 @@
 <?php
 namespace CHAOS\Harvester\OAIPMH\KB\Processors;
 use CHAOS\Harvester\Shadows\ObjectShadow;
-use CHAOS\Harvester\Shadows\SkippedObjectShadow;
 
 function str_ends_with($haystack, $needle)
 {
