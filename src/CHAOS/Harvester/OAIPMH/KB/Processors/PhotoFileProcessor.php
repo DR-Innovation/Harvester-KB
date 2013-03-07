@@ -37,22 +37,11 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	}
 	
 	protected function concludeFileExistance($response) {
-		if(preg_match('/Content-Type: ([^;.]*).*/', $response, $contentType)) {
-			$contentType = $contentType[1];
-			//var_dump($contentType);
-			return $contentType == "image/jpeg";
+		if(preg_match('#Content-Type: ?image/jpeg.*#', $response)) {
+			return true;
 		} else {
 			return false;
 		}
-		/*
-		// TODO: Consider checking the content type.
-		if(preg_match('/Content-Length: (.*)?/', $response, $contentLength)) {
-			$contentLength = intval($contentLength[1]);
-			return $contentLength > 1000;
-		} else {
-			return false;
-		}
-		*/
 	}
 	
 	protected function extractURLPathinfo($photoURL, $size = null) {

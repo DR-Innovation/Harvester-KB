@@ -58,6 +58,10 @@
     		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
     		<chc:id>84</chc:id>
     	</chc:Destination>
+    	<chc:Destination name="danskebilleder">
+    		<chc:baseURL>http://www.danskebilleder.dk/db</chc:baseURL>
+    		<chc:id>127</chc:id>
+    	</chc:Destination>
     </chc:FileProcessor>
     <chc:FileProcessor name="thumb_photo_file" className="ThumbPhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
     	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
@@ -65,6 +69,10 @@
     	<chc:Destination name="default">
     		<chc:baseURL>http://www.kb.dk/imageService</chc:baseURL>
     		<chc:id>84</chc:id>
+    	</chc:Destination>
+    	<chc:Destination name="danskebilleder">
+    		<chc:baseURL>http://www.danskebilleder.dk/db</chc:baseURL>
+    		<chc:id>127</chc:id>
     	</chc:Destination>
     </chc:FileProcessor>
   </chc:Processors>
