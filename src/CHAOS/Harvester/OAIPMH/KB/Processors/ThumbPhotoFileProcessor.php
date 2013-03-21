@@ -4,7 +4,14 @@ use CHAOS\Harvester\Shadows\ObjectShadow;
 
 class ThumbPhotoFileProcessor extends PhotoFileProcessor {
 	
+	/*
 	protected function extractURLPathinfo($externalObject) {
 		return parent::extractURLPathinfo($externalObject, 150);
+	}
+	*/
+
+	public function createFileShadowFromURL($url) {
+		$url = preg_replace('#imageService/#', 'imageService/w150/', $url);
+		return parent::createFileShadowFromURL($url);
 	}
 }

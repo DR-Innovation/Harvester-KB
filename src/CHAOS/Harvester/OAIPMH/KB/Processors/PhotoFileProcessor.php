@@ -22,10 +22,12 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 		
 		$photoURLs = $record->xpath('europeana:object');
 		foreach($photoURLs as $photoURL) {
+			/*
 			if(!str_ends_with(strtolower($photoURL), '.jpg')) {
 				$this->_harvester->info("An europeana:object element (%s) didn't have the .jpg suffix.", $photoURL);
-				//continue; // But this might be okay?
+				// continue; // But this might be okay?
 			}
+			*/
 			$fileShadow = $this->createFileShadowFromURL($photoURL);
 			if($fileShadow) {
 				$shadow->fileShadows[] = $fileShadow;
@@ -44,13 +46,16 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 		}
 	}
 	
-	protected function extractURLPathinfo($photoURL, $size = null) {
+	protected function extractURLPathinfo($photoURL) {
 		$pathinfo = pathinfo($photoURL);
 		// The imageService is a part of the destination.
+		// TODO: Consider if this line should still be here ..
 		$pathinfo['dirname'] = preg_replace('#imageService#', '', $pathinfo['dirname']) . '/';
+		/*
 		if($size != null) {
 			$pathinfo['dirname'] = '/w' . $size . $pathinfo['dirname'];
 		}
+		*/
 		return $pathinfo;
 	}
 }
