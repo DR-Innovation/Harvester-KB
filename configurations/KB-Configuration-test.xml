@@ -49,7 +49,7 @@
 		<chc:schemaGUID>
 			5906a41b-feae-48db-bfb7-714b3e105396
 		</chc:schemaGUID>
-		<chc:schemaLocation>Base/schemas/DKA2.xsd</chc:schemaLocation>
+		<chc:schemaLocation>abstract-harvester-base/schemas/DKA2.xsd</chc:schemaLocation>
     </chc:MetadataProcessor>
     <chc:FileProcessor name="photo_file" className="PhotoFileProcessor" namespace="CHAOS\Harvester\OAIPMH\KB\Processors">
     	<chc:Parameter name="CheckFileExistance">true</chc:Parameter>
