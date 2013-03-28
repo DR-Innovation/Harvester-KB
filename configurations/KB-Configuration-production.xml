@@ -24,7 +24,7 @@
   	<chc:Parameter name="baseURL">http://oai.kb.dk/oai/provider</chc:Parameter>
   </chc:ExternalClient>
   <chc:Modes>
-  	<chc:Mode className="SetSpecMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="set-spec">
+  	<chc:Mode className="SetSelectiveMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="set-selective">
   		<chc:Parameter name="metadataPrefix">ese</chc:Parameter>
   	</chc:Mode>
   	<chc:Mode className="SingleByIdentifierMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="single-reference">
