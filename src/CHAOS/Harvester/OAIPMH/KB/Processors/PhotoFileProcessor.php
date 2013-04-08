@@ -14,8 +14,7 @@ function str_ends_with($haystack, $needle)
 class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 	
 	public function process(&$externalObject, &$shadow = null) {
-		$this->_harvester->debug(__CLASS__." is processing.");
-		
+		// Precondition
 		$record = $externalObject->metadata->record;
 		assert($record instanceof \SimpleXMLElement);
 		assert($shadow instanceof \CHAOS\Harvester\Shadows\ObjectShadow);

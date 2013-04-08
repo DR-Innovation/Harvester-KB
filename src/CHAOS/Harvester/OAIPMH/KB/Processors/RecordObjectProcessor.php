@@ -22,8 +22,7 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 	}
 	
 	public function process(&$externalObject, &$shadow = null) {
-		$this->_harvester->debug(__CLASS__." is processing.");
-		
+		// Precondition
 		/* @var $externalObject \SimpleXMLElement */
 		assert($externalObject instanceof \SimpleXMLElement);
 		
