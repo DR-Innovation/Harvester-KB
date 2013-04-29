@@ -7,7 +7,7 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 	protected function generateQuery($externalObject) {
 		assert($externalObject->header->identifier);
 		$identifier = strval($externalObject->header->identifier);
-		$newQuery = sprintf('(FolderTree:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
+		$newQuery = sprintf('(FolderID:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
 		
 		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
 			// But this might not be a problem.
@@ -45,10 +45,9 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$this->_harvester->info("Processing '%s' #%s", $title, $identifier);
 		
 		$shadow = new ObjectShadow();
-		$shadow = $this->initializeShadow($shadow);
 		$shadow->extras["identifier"] = strval($identifier);
+		$shadow = $this->initializeShadow($externalObject, $shadow);
 		
-		$shadow->query = $this->generateQuery($externalObject);
 		$this->_harvester->process('record_metadata_dka2', $externalObject, $shadow);
 		$this->_harvester->process('photo_file', $externalObject, $shadow);
 		$this->_harvester->process('thumb_photo_file', $externalObject, $shadow);
