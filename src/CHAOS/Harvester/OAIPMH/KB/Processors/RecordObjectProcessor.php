@@ -11,7 +11,7 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		
 		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
 			// But this might not be a problem.
-			$this->_harvester->info("Cannot extract a nummeric ID from the identifier.");
+			$this->_harvester->info("Cannot extract a nummeric ID from the identifier, using only the new query.");
 			return $newQuery;
 			//throw new \Exception("Cannot extract a nummeric ID from the identifier.");
 		} else {
