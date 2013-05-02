@@ -38,9 +38,8 @@
       </chc:Filters>
       <chc:FolderId>442</chc:FolderId>
       <chc:ObjectTypeId>36</chc:ObjectTypeId>
-      <chc:PublishSettings>
+      <chc:PublishSettings UnpublishEverywhere="true">
       	<chc:PublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:PublishAccesspoint>
-      	<chc:UnpublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:UnpublishAccesspoint>
       </chc:PublishSettings>
     </chc:ObjectProcessor>
     <chc:MetadataProcessor name="record_metadata_dka2" className="XSLTMetadataProcessor" namespace="CHAOS\Harvester\Processors">
