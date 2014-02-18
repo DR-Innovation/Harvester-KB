@@ -132,7 +132,12 @@
 	</div>
       </Description>
       <Organization>
-	<xsl:value-of select="ese:dataProvider"/>
+      	<xsl:if test="ese:dataProvider='The Royal Library: The National Library of Denmark and Copenhagen University Library'">
+		<xsl:text>Det Kongelige Bibliotek</xsl:text>
+	</xsl:if>
+	<xsl:if test="ese:dataProvider!='The Royal Library: The National Library of Denmark and Copenhagen University Library'">
+		<xsl:value-of select="ese:dataProvider"/><xsl:text> (via Det Kongelige Bibliotek)</xsl:text>
+	</xsl:if>
       </Organization>
       <ExternalURL>
 	<xsl:value-of select="ese:isShownAt"/>

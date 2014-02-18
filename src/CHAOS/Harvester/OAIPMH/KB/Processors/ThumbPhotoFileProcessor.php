@@ -11,7 +11,7 @@ class ThumbPhotoFileProcessor extends PhotoFileProcessor {
 	*/
 
 	public function createFileShadowFromURL($url) {
-		$url = preg_replace('#imageService/#', 'imageService/w150/', $url);
+		$url = preg_replace('#imageService/#', 'imageService/w400/', $url);
 		return parent::createFileShadowFromURL($url);
 	}
 }
