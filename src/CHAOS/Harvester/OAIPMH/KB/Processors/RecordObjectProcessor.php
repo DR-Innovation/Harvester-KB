@@ -9,6 +9,7 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$identifier = strval($externalObject->header->identifier);
 		$newQuery = sprintf('(FolderID:%u AND ObjectTypeID:%u AND DKA-ExternalIdentifier:"%s")', $this->_folderId, $this->_objectTypeId, $identifier);
 		
+		/*
 		if(preg_match("#:object([^:]*)#", $identifier, $nummeric_id_matches) == 0) {
 			// But this might not be a problem.
 			$this->_harvester->info("Cannot extract a nummeric ID from the identifier, using only the new query.");
@@ -19,6 +20,9 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 			$legacyQuery = sprintf('(DKA-Organization:"%s" AND ObjectTypeID:%u AND m00000000-0000-0000-0000-000063c30000_da_all:"%s")', 'Det Kongelige Bibliotek', $this->_objectTypeId, "{$nummeric_id}");
 			return sprintf("(%s OR %s)", $legacyQuery, $newQuery);
 		}
+		*/
+		// Let's just do with the new query from now on!
+		return $newQuery;
 	}
 	
 	public function process(&$externalObject, &$shadow = null) {
