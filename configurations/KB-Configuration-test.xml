@@ -21,7 +21,7 @@
 	<chc:Password fromEnvironment="CHAOS_PASSWORD" />
   </chc:ChaosConfiguration>
   <chc:ExternalClient className="LoadableOAIPMHClient" namespace="CHAOS\Harvester\OAIPMH" name="oaipmh">
-  	<chc:Parameter name="baseURL">http://oai.kb.dk/oai/provider</chc:Parameter>
+  	<chc:Parameter name="baseURL">http://oai-02.kb.dk/oai/provider</chc:Parameter>
   </chc:ExternalClient>
   <chc:Modes>
   	<chc:Mode className="SetSelectiveMode" namespace="CHAOS\Harvester\OAIPMH\Modes" name="set-selective">
