@@ -169,9 +169,7 @@
 	<xsl:for-each select="dc:contributor">
 	  <xsl:element name="Contributor">
 	    <xsl:attribute name="Role">contributor</xsl:attribute>
-	    <xsl:attribute name="Name">
-	      <xsl:value-of select="."/>
-	    </xsl:attribute>
+	    <xsl:value-of select="."/>
 	  </xsl:element>
 	</xsl:for-each>
       </Contributors>
@@ -180,9 +178,7 @@
 	<xsl:for-each select="dc:creator">
 	  <xsl:element name="Creator">
 	    <xsl:attribute name="Role">creator</xsl:attribute>
-	    <xsl:attribute name="Name">
-	      <xsl:value-of select="."/>
-	    </xsl:attribute>
+	    <xsl:value-of select="."/>
 	  </xsl:element>
 	</xsl:for-each>
       </Creators>
