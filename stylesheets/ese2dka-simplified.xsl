@@ -189,7 +189,7 @@
       -->
       <Categories />
       <Tags>
-	<xsl:for-each select="dc:subject">
+	<xsl:for-each select="dc:subject[@xml:lang='da']">
 	<Tag>
 	  <xsl:apply-templates select="."/>
 	</Tag>
