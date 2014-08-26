@@ -6,6 +6,7 @@
   	This harvester is a general harvester, used to harvest any record published on the KB PMH endpoint: http://oai.kb.dk/oai/provider
   	The KB contact is Sigfrid Lundberg (slu@kb.dk).
   </chc:Description>
+  <chc:Timezone>Europe/Copenhagen</chc:Timezone>
   <chc:BasePath fromEnvironment="BASEPATH" />
   <chc:IncludePaths>
     <chc:path>abstract-harvester-base/src</chc:path>
@@ -41,6 +42,16 @@
       <chc:PublishSettings UnpublishEverywhere="true">
       	<chc:PublishAccesspoint>C4C2B8DA-A980-11E1-814B-02CEA2621172</chc:PublishAccesspoint>
       </chc:PublishSettings>
+    </chc:ObjectProcessor>
+    <chc:ObjectProcessor className="PassThroughObjectProcessor"
+    	namespace="\CHAOS\Harvester\Processors" name="unpublished-by-curator-processor">
+    	<chc:Filters>
+    		<chc:Filter className="UnpublishedByCuratorFilter" namespace="\CHAOS\Harvester\DKA\Filters" name="unpublished-by-curator">
+			</chc:Filter>
+		</chc:Filters>
+    	<chc:FolderId></chc:FolderId>
+    	<chc:ObjectTypeId></chc:ObjectTypeId>
+		<chc:PublishSettings></chc:PublishSettings>
     </chc:ObjectProcessor>
     <chc:MetadataProcessor name="record_metadata_dka2" className="XSLTMetadataProcessor" namespace="CHAOS\Harvester\Processors">
 		<chc:Parameter name="stylesheet">../stylesheets/ese2dka-simplified.xsl</chc:Parameter>

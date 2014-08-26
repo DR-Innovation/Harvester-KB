@@ -51,6 +51,13 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$shadow = new ObjectShadow();
 		$shadow->extras["identifier"] = strval($identifier);
 		$shadow = $this->initializeShadow($externalObject, $shadow);
+
+		$this->_harvester->process('unpublished-by-curator-processor', $externalObject, $shadow);
+		
+		// If the unpublished by curator filter was failing ..
+		if($shadow->skipped) {
+			return $shadow;
+		}
 		
 		$this->_harvester->process('record_metadata_dka2', $externalObject, $shadow);
 		$this->_harvester->process('photo_file', $externalObject, $shadow);
