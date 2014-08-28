@@ -152,9 +152,13 @@
       </Type> 
 
       <!--
-      <CreatedDate/>
-      <FirstPublishedDate/>
-      -->
+      <CreatedDate/>-->
+
+  	<xsl:if test="string-length($date) > 0">
+	  	<FirstPublishedDate>
+	  		<xsl:value-of select="$date"/>
+	  	</FirstPublishedDate>
+  	</xsl:if>
 
       <Contributors>
 	<xsl:for-each select="dc:contributor">

@@ -43,13 +43,14 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		
 		$record = $externalObject->metadata->record;
 		assert($record instanceof \SimpleXMLElement);
-		
+
 		$title = self::extractTitle($record);
 		
 		$this->_harvester->info("Processing '%s' #%s", $title, $identifier);
 		
 		$shadow = new ObjectShadow();
 		$shadow->extras["identifier"] = strval($identifier);
+		$shadow->extras["date"] = self::extractDate($record);
 		$shadow = $this->initializeShadow($externalObject, $shadow);
 
 		$this->_harvester->process('unpublished-by-curator-processor', $externalObject, $shadow);
@@ -62,10 +63,35 @@ class RecordObjectProcessor extends \CHAOS\Harvester\Processors\ObjectProcessor 
 		$this->_harvester->process('record_metadata_dka2', $externalObject, $shadow);
 		$this->_harvester->process('photo_file', $externalObject, $shadow);
 		$this->_harvester->process('thumb_photo_file', $externalObject, $shadow);
-		
 		$shadow->commit($this->_harvester);
 		
 		return $shadow;
+	}
+
+	public static function extractDate($record) {
+		$date = $record->xpath('dc:date');
+		// See if there is a date
+		if (count($date) > 0) {
+			$date = str_replace(array("[", "]"), "", strval(implode('-', $date)));
+
+			// Year only - no day and month
+			if (strlen($date) === 4 && is_numeric($date)) {
+				$date .= '-01-01T00:00:00';
+			} else {
+				$date .= 'T00:00:00';
+			}
+
+			// Check if date is valid.
+			$dateparse = date_parse($date);
+			if ($dateparse["error_count"] > 0) {
+				return "";
+			}
+
+			$date = new \DateTime($date);
+			return $date->format('Y-m-d\TH:i:s');
+		}
+
+		return "";
 	}
 	
 	public static function extractTitle($record) {
