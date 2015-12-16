@@ -27,6 +27,8 @@ class PhotoFileProcessor extends \CHAOS\Harvester\Processors\FileProcessor {
 				// continue; // But this might be okay?
 			}
 			*/
+			// Remove the limit on the size of the image from the URL
+			$photoURL = str_replace('&b=256', '', $photoURL);
 			$fileShadow = $this->createFileShadowFromURL($photoURL);
 			if($fileShadow) {
 				$shadow->fileShadows[] = $fileShadow;
